@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:konkuk_student_app/dashboard.dart';
-import 'package:konkuk_student_app/profile/profilemain.dart';
-import 'package:konkuk_student_app/statistics/stats_card.dart';
+import 'package:Patient_App/dashboard.dart';
+import 'package:Patient_App/profile/profilemain.dart';
+import 'package:Patient_App/statistics/stats_card.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);

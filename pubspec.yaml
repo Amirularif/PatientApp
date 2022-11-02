@@ -1,4 +1,4 @@
-name: konkuk_student_app
+name: Patient_App
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -37,10 +37,17 @@ dependencies:
   google_fonts: ^3.0.1
   smooth_page_indicator: ^1.0.0+2
   syncfusion_flutter_charts: ^20.2.39
+  bottom_navy_bar: ^6.0.0
+  audioplayers: ^0.20.1
+
+
 
 dev_dependencies:
+  change_app_package_name: ^1.1.0
   flutter_test:
     sdk: flutter
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -64,6 +71,8 @@ flutter:
   assets:
      - assets/
      - assets/emoticons/
+     - assets/music_cover_pic/
+     - assets/music/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

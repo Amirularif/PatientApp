@@ -1,5 +1,8 @@
+import 'package:Patient_App/MoodPage.dart';
+import 'package:Patient_App/SurveyPage.dart';
+import 'package:Patient_App/util/music_player.dart';
 import 'package:flutter/material.dart';
-import 'package:konkuk_student_app/dashboard.dart';
+import 'package:Patient_App/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
