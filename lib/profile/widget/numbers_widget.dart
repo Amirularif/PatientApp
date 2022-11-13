@@ -3,6 +3,8 @@ import 'package:Patient_App/profile/edit_profile_page.dart';
 import 'package:Patient_App/profile/user.dart';
 import 'package:Patient_App/profile/user_preferences.dart';
 
+import '../../server/ProfileData.dart';
+
 class NumbersWidget extends StatefulWidget {
   const NumbersWidget({Key? key}) : super(key: key);
 
@@ -11,17 +13,33 @@ class NumbersWidget extends StatefulWidget {
 }
 
 class _NumbersWidgetState extends State<NumbersWidget> {
+  User? userProf;
+  Future DBLoad() async{
+    userProf = User(
+      Uid: await ProfileData.connect("P1001", "Uid"),
+      Name: await ProfileData.connect("P1001", "Name"),
+      Gender: await ProfileData.connect("P1001", "Gender"),
+      Weight: await ProfileData.connect("P1001", "Weight"),
+      Age: await ProfileData.connect("P1001", "Age"),
+      Reg: await ProfileData.connect("P1001", "Reg"),
+      Email: await ProfileData.connect("P1001", "Email"),
+      Phone: await ProfileData.connect("P1001", "Phone"),
+      Token: await ProfileData.connect("P1001", "Token"),
+      Image: await ProfileData.connect("P1001", "Image"),
+    );
+  }
+
   User user = UserPreferences.myUser;
 
   @override
   Widget build(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      buildButton(context, user.weight, 'Weight'),
+      buildButton(context, user.Weight, 'Weight'),
       buildDivider(),
-      buildButton(context, user.gender, 'Gender'),
+      buildButton(context, user.Gender, 'Gender'),
       buildDivider(),
-      buildButton(context, user.age, 'Age'),
+      buildButton(context, user.Age, 'Age'),
     ],
   );
 

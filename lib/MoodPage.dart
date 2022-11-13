@@ -21,6 +21,12 @@ class MoodPage extends StatefulWidget {
 }
 
 class _MoodPageState extends State<MoodPage> {
+  var boxColor1 = Colors.grey.shade200;
+  var boxColor2 = Colors.grey.shade200;
+  var boxColor3 = Colors.grey.shade200;
+  var boxColor4 = Colors.grey.shade200;
+  var boxColor5 = Colors.grey.shade200;
+  String flag = "clear";
   User user = UserPreferences.myUser;
   String date = '';
   int selectedindex = 1;
@@ -130,8 +136,11 @@ class _MoodPageState extends State<MoodPage> {
                           child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'Input activity name here',
+                              hintText: 'Input your activity here',
                             ),
+                            onSubmitted: (text){
+
+                            },
                           ),
                         ),
                       ),
@@ -148,27 +157,91 @@ class _MoodPageState extends State<MoodPage> {
                         //very calm
                         Column(
                           children: [
-                            Emoticons(
-                              emoticon: 'assets/emoticons/verycalm.png',
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              'Very Calm',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: ()async{
+                                print("before: $flag");
+                                if(identical(flag, "clear")){
+                                  setState(() {
+                                    boxColor1 = Colors.grey.shade400;
+                                  });
+                                  flag = "V. Calm";
+                                  print("after: $flag");
+                                }else if(flag == "V. Calm"){
+                                  setState(() {
+                                    boxColor1 = Colors.grey.shade200;
+                                  });
+                                  flag = "clear";
+                                  print("after: $flag");
+                                }else{
+                                  final action = await SaveSuccess.doneDialog(context, 'Info', 'Please unselect other mood first.');
+                                }
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                  color: boxColor1,
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                duration: Duration(seconds: 0),
+                                child: Container(
+                                  child: Image.asset(
+                                    "assets/emoticons/verycalm.png",
+                                    height: 35,
+                                    width: 35,
+                                  ),
+                                ),
                               ),
                             ),
+                            SizedBox(
+                            height: 8,
+                          ),
+                            Text(
+                            'Very Calm',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 10,
+                            ),
+                          ),
                           ],
                         ),
 
                         //calm
                         Column(
                           children: [
-                            Emoticons(
-                              emoticon: 'assets/emoticons/calm.png',
+                            GestureDetector(
+                              onTap: ()async{
+                                print("before: $flag");
+                                if(identical(flag, "clear")){
+                                  setState(() {
+                                    boxColor2 = Colors.grey.shade400;
+                                  });
+                                  flag = "Calm";
+                                  print("after: $flag");
+                                }else if(flag == "Calm"){
+                                  setState(() {
+                                    boxColor2 = Colors.grey.shade200;
+                                  });
+                                  flag = "clear";
+                                  print("after: $flag");
+                                }else{
+                                  final action = await SaveSuccess.doneDialog(context, 'Info', 'Please unselect other mood first.');
+                                }
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: boxColor2,
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                duration: Duration(seconds: 0),
+                                child: Container(
+                                  child: Image.asset(
+                                    "assets/emoticons/calm.png",
+                                    height: 35,
+                                    width: 35,
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 8,
@@ -186,8 +259,40 @@ class _MoodPageState extends State<MoodPage> {
                         //neutral
                         Column(
                           children: [
-                            Emoticons(
-                              emoticon: 'assets/emoticons/neutral.png',
+                            GestureDetector(
+                              onTap: ()async{
+                                print("before: $flag");
+                                if(identical(flag, "clear")){
+                                  setState(() {
+                                    boxColor3 = Colors.grey.shade400;
+                                  });
+                                  flag = "Neutral";
+                                  print("after: $flag");
+                                }else if(flag == "Neutral"){
+                                  setState(() {
+                                    boxColor3 = Colors.grey.shade200;
+                                  });
+                                  flag = "clear";
+                                  print("after: $flag");
+                                }else{
+                                  final action = await SaveSuccess.doneDialog(context, 'Info', 'Please unselect other mood first.');
+                                }
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: boxColor3,
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                duration: Duration(seconds: 0),
+                                child: Container(
+                                  child: Image.asset(
+                                    "assets/emoticons/neutral.png",
+                                    height: 35,
+                                    width: 35,
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 8,
@@ -202,11 +307,43 @@ class _MoodPageState extends State<MoodPage> {
                           ],
                         ),
 
-                        //stressed
+                        //Stressed
                         Column(
                           children: [
-                            Emoticons(
-                              emoticon: 'assets/emoticons/stressed.png',
+                            GestureDetector(
+                              onTap: ()async{
+                                print("before: $flag");
+                                if(identical(flag, "clear")){
+                                  setState(() {
+                                    boxColor4 = Colors.grey.shade400;
+                                  });
+                                  flag = "Stressed";
+                                  print("after: $flag");
+                                }else if(flag == "Stressed"){
+                                  setState(() {
+                                    boxColor4 = Colors.grey.shade200;
+                                  });
+                                  flag = "clear";
+                                  print("after: $flag");
+                                }else{
+                                  final action = await SaveSuccess.doneDialog(context, 'Info', 'Please unselect other mood first.');
+                                }
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: boxColor4,
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                duration: Duration(seconds: 0),
+                                child: Container(
+                                  child: Image.asset(
+                                    "assets/emoticons/stressed.png",
+                                    height: 35,
+                                    width: 35,
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 8,
@@ -221,11 +358,43 @@ class _MoodPageState extends State<MoodPage> {
                           ],
                         ),
 
-                        //very stressed
+                        //very Stressed
                         Column(
                           children: [
-                            Emoticons(
-                              emoticon: 'assets/emoticons/verystressed.png',
+                            GestureDetector(
+                              onTap: ()async{
+                                print("before: $flag");
+                                if(identical(flag, "clear")){
+                                  setState(() {
+                                    boxColor5 = Colors.grey.shade400;
+                                  });
+                                  flag = "V. Stressed";
+                                  print("after: $flag");
+                                }else if(flag == "V. Stressed"){
+                                  setState(() {
+                                    boxColor5 = Colors.grey.shade200;
+                                  });
+                                  flag = "clear";
+                                  print("after: $flag");
+                                }else{
+                                  final action = await SaveSuccess.doneDialog(context, 'Info', 'Please unselect other mood first.');
+                                }
+                              },
+                              child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: boxColor5,
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                duration: Duration(seconds: 0),
+                                child: Container(
+                                  child: Image.asset(
+                                    "assets/emoticons/verystressed.png",
+                                    height: 35,
+                                    width: 35,
+                                  ),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 8,
@@ -241,7 +410,6 @@ class _MoodPageState extends State<MoodPage> {
                         ),
                       ],
                     ),
-
                     SizedBox(
                       height: 25,
                     ),
@@ -253,7 +421,10 @@ class _MoodPageState extends State<MoodPage> {
                         GestureDetector(
                           onTap: ()async {
                             final action = await SaveSuccess.doneDialog(context, 'Success', 'Activity and mood successfully logged !');
+                            print("ada tak");
                             if(action == DialogsAction.done) {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => MoodPage()));
                               setState(() => tappedDone = true);
                             } else {
                               setState(() => tappedDone = false);

@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import 'package:Patient_App/server/MoodLogData.dart';
 import 'package:flutter/material.dart';
 import 'package:Patient_App/dashboard.dart';
 import 'package:Patient_App/profile/profilemain.dart';
 import 'package:Patient_App/statistics/stats_card.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -11,62 +15,92 @@ class StatsPage extends StatefulWidget {
 }
 
 class _StatsPageState extends State<StatsPage> {
+
+  var logList = [];
+  Future DBLoad() async{
+    logList = await MoodLogData.connect("P1001");
+    //print(logList[0]["date"]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(
-        leading: BackButton(
-        color: Colors.black87,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
-          );
-        },
-      ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text('Statistics'),
-        titleTextStyle: TextStyle(
-          color: Colors.black87,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,),
-        centerTitle: true,),
+    return FutureBuilder(
+        future: DBLoad(),
+        builder: (context, snapshot){
+          if(logList != null){
+            return Scaffold(
+              backgroundColor: Colors.grey.shade100,
+              appBar: AppBar(
+                leading: BackButton(
+                  color: Colors.black87,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Dashboard()),
+                    );
+                  },
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Text('Statistics'),
+                titleTextStyle: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,),
+                centerTitle: true,
+              ),
+              body: SafeArea(
+                child: ListView.builder(
+                  itemCount: logList.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      color: HexColor(logList[index]["Colors"]),
+                      //0xFFC0DAFF
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 80,width: 15),
+                          SizedBox(
+                            width: (75),
+                            child: Text(
+                            logList[index]["Mood"],
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            )
+                            ),
+                          ),
 
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              children: [
-                StatsCards(
-                  activity: 'Cooking',
-                  mood: 'Stressed',
-                  date: '24 June 2022',
-                  time: '07:40 am',
-                  color: Colors.lightGreen.shade200,
-                ),
-                StatsCards(
-                  activity: 'Watching TV',
-                  mood: 'Neutral',
-                  date: '24 June 2022',
-                  time: '18:35 pm',
-                  color: Colors.lightBlue.shade100,
-                ),
-                StatsCards(
-                  activity: 'Reading',
-                  mood: 'Calm',
-                  date: '24 June 2022',
-                  time: '20:02 pm',
-                  color: Colors.amber.shade100,
-                ),
-              ],
-            ),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(logList[index]["Desc"],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(logList[index]["Date"]),
+                          ]
 
-            ),
-          ),
-        ),
+                          ),
+                        ],
+                      ),
+                    );
+
+                  },
+                ),
+              ),
+            );
+          }
+          else{
+            return const Scaffold(
+                body:Center(child: CircularProgressIndicator())
+            );//
+          }
+        }
     );
   }
 }

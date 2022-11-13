@@ -39,6 +39,9 @@ dependencies:
   syncfusion_flutter_charts: ^20.2.39
   bottom_navy_bar: ^6.0.0
   audioplayers: ^0.20.1
+  mongo_dart: ^0.8.0
+  jwt_decode: ^0.3.1
+  hexcolor: ^2.0.7
 
 
 

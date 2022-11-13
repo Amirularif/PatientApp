@@ -24,14 +24,15 @@ class _SurveyPageState extends State<SurveyPage> {
   late Widget selectedWidget;
   List<SurveyHistory> surveyinfo = [
 
-    const SurveyHistory(date: "11/12/2022"),
-    const SurveyHistory(date: "04/12/2022"),
-    const SurveyHistory(date: "27/11/2022"),
-    const SurveyHistory(date: "20/11/2022"),
-    const SurveyHistory(date: "13/11/2022"),
-    const SurveyHistory(date: "06/11/2022"),
-    const SurveyHistory(date: "29/10/2022"),
-    const SurveyHistory(date: "22/10/2022"),
+    const SurveyHistory(date: "04/11/2022"),
+    const SurveyHistory(date: "21/10/2022"),
+    const SurveyHistory(date: "04/10/2022"),
+    const SurveyHistory(date: "27/09/2022"),
+    const SurveyHistory(date: "20/09/2022"),
+    const SurveyHistory(date: "13/09/2022"),
+    const SurveyHistory(date: "06/09/2022"),
+    const SurveyHistory(date: "29/08/2022"),
+    const SurveyHistory(date: "22/08/2022"),
 
   ];
 
@@ -132,7 +133,7 @@ class _SurveyPageState extends State<SurveyPage> {
                           width: 50,
                         ),
                         Text(
-                          '11/12/2022',
+                          '04/11/2022',
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 18,
@@ -160,7 +161,7 @@ class _SurveyPageState extends State<SurveyPage> {
                           width: 50,
                         ),
                         Text(
-                          '5개',
+                          '6개',
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 18,
