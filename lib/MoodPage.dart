@@ -1,4 +1,5 @@
 import 'package:Patient_App/SurveyPage.dart';
+import 'package:Patient_App/server/MoodLogData.dart';
 import 'package:Patient_App/survey/surveymain.dart';
 import 'package:Patient_App/util/emoticons.dart';
 import 'package:Patient_App/util/music_player.dart';
@@ -27,6 +28,11 @@ class _MoodPageState extends State<MoodPage> {
   var boxColor4 = Colors.grey.shade200;
   var boxColor5 = Colors.grey.shade200;
   String flag = "clear";
+
+  String desc = "no data";
+  String mood = " ";
+  String recdate = DateFormat('dd/MM/yyyy, h:mm a').format(DateTime.now());
+
   User user = UserPreferences.myUser;
   String date = '';
   int selectedindex = 1;
@@ -138,8 +144,8 @@ class _MoodPageState extends State<MoodPage> {
                               border: InputBorder.none,
                               hintText: 'Input your activity here',
                             ),
-                            onSubmitted: (text){
-
+                            onChanged: (String text){
+                              desc = text;
                             },
                           ),
                         ),
@@ -421,10 +427,11 @@ class _MoodPageState extends State<MoodPage> {
                         GestureDetector(
                           onTap: ()async {
                             final action = await SaveSuccess.doneDialog(context, 'Success', 'Activity and mood successfully logged !');
-                            print("ada tak");
+
                             if(action == DialogsAction.done) {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => MoodPage()));
+                              print("ada tak value flag: $recdate");
+                              MoodLogData.addMoodLog("P1001", recdate, desc, flag);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MoodPage()));
                               setState(() => tappedDone = true);
                             } else {
                               setState(() => tappedDone = false);
