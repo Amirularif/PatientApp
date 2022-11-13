@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:Patient_App/dashboard.dart';
+import 'package:intl/intl.dart';
+import '../server/SurveyData.dart';
 
 class SurveyCompletePage extends StatelessWidget {
+  String recdate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class SurveyCompletePage extends StatelessWidget {
               'Back to Dashboard?',
             ), //Text
             onPressed: () {
+              SurveyData.addSurvey("P1001", recdate);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Dashboard()),
