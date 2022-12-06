@@ -1,6 +1,10 @@
 import 'package:Patient_App/SurveyPage.dart';
 import 'package:Patient_App/profile/edit_profile_page.dart';
 import 'package:Patient_App/server/ProfileData.dart';
+import 'package:Patient_App/summary/ActivitySummary.dart';
+import 'package:Patient_App/summary/HeartRateSummary.dart';
+import 'package:Patient_App/summary/SleepSummary.dart';
+import 'package:Patient_App/summary/WeightSummary.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:Patient_App/graph/FitHeart.dart';
@@ -248,6 +252,54 @@ class _DashboardState extends State<Dashboard> {
                             height: 15,
                           ),
 
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Data Summary',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          //summary cards (swiping)
+                          Container(
+                              height: 120,
+                              child: PageView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _controller,
+                                children: [
+                                  HeartRateSummary(title: 'Heart Rate (bpm)'),
+                                  ActivitySummary(title: 'Activity (step count)'),
+                                  SleepSummary(title: 'Sleep (hours)', description: 'yadayada',),
+                                  WeightSummary(title: 'Weight (kg)', description: 'yadayada',),
+                                ],
+                              )
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
+
+                          //scroll bar
+                          SmoothPageIndicator(
+                            controller: _controller,
+                            count: 4,
+                            effect: ExpandingDotsEffect(
+                              activeDotColor: Colors.grey.shade600,
+                              dotHeight: 5,
+                              dotWidth: 5,
+                            ),
+                          ),
+                          /*
                           //token information title
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -400,6 +452,8 @@ class _DashboardState extends State<Dashboard> {
                               ),
                             ),
                           ),
+
+                           */
                         ],
                       ),
                     ),
