@@ -20,7 +20,7 @@ class SaveSuccess {
             TextButton(
               onPressed: () => Navigator.of(context).pop(DialogsAction.done),
               child: Text(
-                'Done',
+                'Ok',
                 style: TextStyle(
                     color: Colors.lightBlue, fontWeight: FontWeight.bold),
               ),

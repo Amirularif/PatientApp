@@ -1,4 +1,10 @@
 import 'package:Patient_App/SurveyPage.dart';
+import 'package:Patient_App/profile/edit_profile_page.dart';
+import 'package:Patient_App/server/ProfileData.dart';
+import 'package:Patient_App/summary/ActivitySummary.dart';
+import 'package:Patient_App/summary/HeartRateSummary.dart';
+import 'package:Patient_App/summary/SleepSummary.dart';
+import 'package:Patient_App/summary/WeightSummary.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:Patient_App/graph/FitHeart.dart';
@@ -12,6 +18,7 @@ import 'package:Patient_App/profile/user_preferences.dart';
 import 'package:Patient_App/statistics/stats_page.dart';
 import 'package:Patient_App/util/emoticons.dart';
 import 'package:Patient_App/util/save_sucess.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:intl/intl.dart';
 
@@ -81,10 +88,19 @@ class _DashboardState extends State<Dashboard> {
   ];
   
   String dateinit(){
-    var now = new DateTime.now();
+    var now = DateTime.now();
     var formatter = new DateFormat('dd/MM/yyyy');
     String formattedDate = formatter.format(now);
     return formattedDate;
+  }
+
+  //String token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKV1QgRGVjb2RlIiwiaWF0IjoxNjA4NTgxNzczLCJleHAiOjE2NDAxMTc3NzMsImF1ZCI6Ind3dy5qd3RkZWNvZGUuY29tIiwic3ViIjoiQSBzYW1wbGUgSldUIiwibmFtZSI6IlZhcnVuIFMgQXRocmV5YSIsImVtYWlsIjoidmFydW4uc2F0aHJleWFAZ21haWwuY29tIiwicm9sZSI6IkRldmVsb3BlciJ9.vXE9ogUeMMsOTz2XQYHxE2hihVKyyxrhi_qfhJXamPQ';
+  List? userList;
+  var time;
+  Future DBLoad() async{
+    userList = await ProfileData.reconnect("P1001");
+    time = Jwt.getExpiryDate(userList![0]["Token"]);
+
   }
 
   void initState(){
@@ -98,296 +114,359 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey.shade100,
-        bottomNavigationBar: BottomNavyBar(
-          selectedIndex: selectedindex,
-          showElevation: true,
-          itemCornerRadius: 24,
-          curve: Curves.easeIn,
-          onItemSelected: (index) => setState(() {
-            selectedindex = index;
-            print(index);
-            if (index == 0) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Dashboard()));
-            }else if (index == 1) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MoodPage()));
-            }else if (index == 2) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SurveyPage()));
-            }else if (index == 3) {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ProfileMain()));
-            }
-          }),
-          items: <BottomNavyBarItem>[
-            BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-              activeColor: Colors.red,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.emoji_emotions),
-              title: Text('Mood Log'),
-              activeColor: Colors.purpleAccent,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              title: Text('Survey'),
-              activeColor: Colors.blue,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Profile'),
-              activeColor: Colors.pink,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //hi user!
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return FutureBuilder(
+        future: DBLoad(),
+        builder: (context, snapshot){
+          if(userList != null){
+            //print(userList![0]["Token"]);
+            return Scaffold(
+                backgroundColor: Colors.grey.shade100,
+                bottomNavigationBar: BottomNavyBar(
+                  selectedIndex: selectedindex,
+                  showElevation: true,
+                  itemCornerRadius: 24,
+                  curve: Curves.easeIn,
+                  onItemSelected: (index) => setState(() {
+                    selectedindex = index;
+                    print(index);
+                    if (index == 0) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Dashboard()));
+                    }else if (index == 1) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => MoodPage()));
+                    }else if (index == 2) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => SurveyPage()));
+                    }else if (index == 3) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => ProfileMain()));
+                    }
+                  }),
+                  items: <BottomNavyBarItem>[
+                    BottomNavyBarItem(
+                      icon: Icon(Icons.home),
+                      title: Text('Home'),
+                      activeColor: Colors.red,
+                      textAlign: TextAlign.center,
+                    ),
+                    BottomNavyBarItem(
+                      icon: Icon(Icons.emoji_emotions),
+                      title: Text('Mood Log'),
+                      activeColor: Colors.purpleAccent,
+                      textAlign: TextAlign.center,
+                    ),
+                    BottomNavyBarItem(
+                      icon: Icon(Icons.menu_book_outlined),
+                      title: Text('Survey'),
+                      activeColor: Colors.blue,
+                      textAlign: TextAlign.center,
+                    ),
+                    BottomNavyBarItem(
+                      icon: Icon(Icons.account_circle),
+                      title: Text('Profile'),
+                      activeColor: Colors.pink,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                body: SafeArea(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //hi user!
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    'Dashboard',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(date,
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
                           SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            'Dashboard',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(date,
-                          style: TextStyle(color: Colors.black87),
-                        ),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 15,
-                  ),
-
-                  //menu title
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '의사 진단',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  //notyfication
-                  Container(
-                      height: 250,
-                      width: 360,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                        padding: EdgeInsets.all(5),
-                    child: ListView.separated(
-                        itemBuilder: (context,index){
-                      return listViewItem(index);
-                    },
-                        separatorBuilder: (context,index){
-                          return Divider(height: 0);
-                          },
-                        itemCount: messages.length),
-                  ),
-
-                  SizedBox(
-                    height: 15,
-                  ),
-
-                  //token information title
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Token Info',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  //token container
-                Container(
-                      height: 120,
-                      width: 360,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    padding: const EdgeInsets.fromLTRB(30,10,15,15),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            '7',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 55,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 0.1,
-                          ),
-                          Text(
-                            'days left',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        width: 25,
-                      ),
-                      VerticalDivider(
-                          thickness: 1,
-                          color: Colors.grey
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'TOKEN STATUS',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 14,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 2,
+                            height: 15,
                           ),
 
-                          Text(
-                            '● Updated',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 13,
-                            ),
+                          //menu title
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '의사 진단',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
 
                           SizedBox(
                             height: 10,
                           ),
 
-                          Text(
-                            'NEXT UPDATE',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-
-                          Text(
-                            '● 7 days time',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                    ),
-
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  //renew token button
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => StatsPage()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Container(
-                        padding: EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade900,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text('Renew Token',
-                            style: TextStyle(
+                          //notyfication
+                          Container(
+                            height: 250,
+                            width: 360,
+                            decoration: BoxDecoration(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: EdgeInsets.all(5),
+                            child: ListView.separated(
+                                itemBuilder: (context,index){
+                                  return listViewItem(index);
+                                },
+                                separatorBuilder: (context,index){
+                                  return Divider(height: 0);
+                                },
+                                itemCount: messages.length),
+                          ),
+
+                          SizedBox(
+                            height: 15,
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Data Summary',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          //summary cards (swiping)
+                          Container(
+                              height: 120,
+                              child: PageView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _controller,
+                                children: [
+                                  HeartRateSummary(title: 'Heart Rate (bpm)'),
+                                  ActivitySummary(title: 'Activity (step count)'),
+                                  SleepSummary(title: 'Sleep (hours)', description: 'yadayada',),
+                                  WeightSummary(title: 'Weight (kg)', description: 'yadayada',),
+                                ],
+                              )
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
+
+                          //scroll bar
+                          SmoothPageIndicator(
+                            controller: _controller,
+                            count: 4,
+                            effect: ExpandingDotsEffect(
+                              activeDotColor: Colors.grey.shade600,
+                              dotHeight: 5,
+                              dotWidth: 5,
                             ),
                           ),
-                        ),
+                          /*
+                          //token information title
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Token Info',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          //token container
+                          Container(
+                            height: 120,
+                            width: 360,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.fromLTRB(30,10,15,15),
+                            child: Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      '7',
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 55,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 0.1,
+                                    ),
+                                    Text(
+                                      'days left',
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                VerticalDivider(
+                                    thickness: 1,
+                                    color: Colors.grey
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'TOKEN STATUS',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+
+                                    Text(
+                                      '● Updated',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+
+                                    Text(
+                                      'NEXT UPDATE',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+
+                                    Text(
+                                      "22/11/2022",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 25,
+                          ),
+
+                          //renew token button
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => EditProfilePage()),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                              child: Container(
+                                padding: EdgeInsets.all(15.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade900,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: Text('Renew Token',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                           */
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        )
+                )
+            );
+          }
+          else{
+            return const Scaffold(
+                body:Center(child: CircularProgressIndicator())
+            );//
+          }
+        }
     );
   }
 
