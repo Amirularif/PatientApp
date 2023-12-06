@@ -15,3 +15,11 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 * MongoDB
 + REST API
 
+
+# Collaborators
+
+👦 Team Leader: [Hani Qamaliah](https://github.com/ricegummy/)
+
+👧 Front-end: [Amirul Arif](https://github.com/Amirularif/)
+
+👦 Back-end: [Nik Amir Zakwan](https://github.com/astralkizuna/)
