@@ -5,6 +5,15 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 > [!WARNING]
 > This Project is completed for University purposes. Feel free to use it for educational purposes. Not for business purposes!
 
+# Development Programs, DB, and language used
+
+- Flutter Framework
+* Dart language
++ Adobe XD
+- Firebase
+* MongoDB
++ REST API
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
