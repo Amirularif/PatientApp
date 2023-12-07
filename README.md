@@ -23,3 +23,14 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 👧 Front-end: [Amirul Arif](https://github.com/Amirularif/)
 
 👦 Back-end: [Nik Amir Zakwan](https://github.com/astralkizuna/)
+
+
+# Functions
+
+1. **Dashboard page**: Allow the doctors to signup and login.
+
+2. **Moodlog Page**: Consist of a list of patients which enables the doctors to view each of thier respective information by simply tapping on them
+
+3. **Profile Page**: Contains information of each patient such as thier survey scores, mood log information, graphical data including heartbeat rate, sleep log and walking distance to help them better analyse the physical condition of the patient.
+
+4. **Survey**: This function allows the doctors to send messages to the patients either to remind them for exercise or give them some new suggestions to improve thier sleeping schedule.
