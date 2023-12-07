@@ -27,10 +27,10 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 
 # Functions
 
-1. **Dashboard page**: Allow the doctors to signup and login.
+1. **Dashboard page**: Allow the users to view messages from doctors and simplified version of thier daily or weekly biological information.
 
-2. **Moodlog Page**: Consist of a list of patients which enables the doctors to view each of thier respective information by simply tapping on them
+2. **Moodlog Page**: Consist of mood log widget that allows the user to log thier daily mood with activites they have done throughout the day. This information will be send to the backend. Also allow user to listens to ambient music.
 
-3. **Profile Page**: Contains information of each patient such as thier survey scores, mood log information, graphical data including heartbeat rate, sleep log and walking distance to help them better analyse the physical condition of the patient.
+3. **Profile Page**: Contains user information and their fitbit token information.
 
-4. **Survey**: This function allows the doctors to send messages to the patients either to remind them for exercise or give them some new suggestions to improve thier sleeping schedule.
+4. **Survey**: Allow users to do survey and keep track of them. the survey results will also be uploaded to the backend
