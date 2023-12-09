@@ -34,3 +34,6 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 3. **Profile Page**: Contains user information and their fitbit token information.
 
 4. **Survey**: Allow users to do survey and keep track of them. the survey results will also be uploaded to the backend
+
+#Screenshots
+_will be updated soon_
