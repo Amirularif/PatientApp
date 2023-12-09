@@ -35,5 +35,5 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 
 4. **Survey**: Allow users to do survey and keep track of them. the survey results will also be uploaded to the backend
 
-#Screenshots
+# Screenshots
 _will be updated soon_
