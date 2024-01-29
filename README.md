@@ -37,3 +37,12 @@ Konkuk University 2nd Semester Final Year Project. Patient App is an application
 
 # Screenshots
 _will be updated soon_
+
+
+![dashboard](https://github.com/Amirularif/PatientApp/assets/57553676/320ede0c-7e25-485e-b460-2a1822a36818)
+![moodlog](https://github.com/Amirularif/PatientApp/assets/57553676/62c38d49-f219-435a-8298-4f4550f66b8f)
+![moodlog updated](https://github.com/Amirularif/PatientApp/assets/57553676/da53fc05-5497-4fda-a496-eb71577d9fc0)
+![stats](https://github.com/Amirularif/PatientApp/assets/57553676/ea9fc925-110e-4cf3-b6f3-9b6385b5f942)
+![survey](https://github.com/Amirularif/PatientApp/assets/57553676/652c82ef-0edf-4ef9-b61f-fd558936dda3)
+![inpage survey](https://github.com/Amirularif/PatientApp/assets/57553676/aa54dbc5-7e41-478e-bf08-9cb5e655eeb0)
+![profile](https://github.com/Amirularif/PatientApp/assets/57553676/7385c568-16de-4fa8-a5f8-8de9b80456f2)
